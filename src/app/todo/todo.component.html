@@ -1,0 +1,16 @@
+<h1>Plan your day!</h1>
+<h2>User: Ivan Ivanov. Count of Task {{ count }}</h2>
+
+<hr>
+
+<form class="row mb-3" (submit)="addNewTask($event)">
+  <div class="col-9">
+    <input type="text" class="form-control" id="newTask" [(ngModel)]="currentNewTaskContent"
+      name="currentNewTaskContent">
+  </div>
+  <div class="col-3">
+    <button type="submit" class="btn btn-success" style="width: 100%">Add</button>
+  </div>
+</form>
+
+<app-todo-list [newTask]="newTask" (taskListLength)="setTaskCount($event)"></app-todo-list>

@@ -1,0 +1,42 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Task</th>
+      <th scope="col">Check</th>
+      <th scope="col">DONE/IN PROGRESS</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of taskList; index as i">
+      <th>{{ i + 1 }}</th>
+      <td>{{ task.content }}</td>
+      <td>
+        <input type="checkbox" [(ngModel)]="task.completed" name="task.completed" [disabled]="editStatus">
+      </td>
+      <td [style.color]="task.completed ? 'green' : 'red'">
+        {{ task.completed ? 'DONE' : 'In PROGRESS' }}
+      </td>
+      <td>
+        <button type="button" class="btn btn-warning" (click)="editTask(i)" [disabled]="editStatus">Edit</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="deleteTask(i)"
+          [disabled]="!task.completed || editStatus">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<form *ngIf="editStatus" class="row mb-3" (submit)="saveChanges($event)">
+  <div class="col-9">
+    <input type="text" class="form-control" [(ngModel)]="taskContent" name="taskContent">
+  </div>
+  <div class="col-3">
+    <button type="submit" class="btn btn-primary" style="width: 100%">Save</button>
+  </div>
+</form>
